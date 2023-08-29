@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- Bootstrap -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+			crossorigin="anonymous" />
+		<!-- SweetAlert2 -->
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+		<!-- CSS -->
+		<link rel="stylesheet" href="./css/style.css" />
+		<!-- Icono del Sitio -->
+		<link
+			rel="shortcut icon"
+			href="./img/logo-principal.png"
+			type="image/x-icon" />
+		<title>Cine+</title>
+	</head>
+	<body>
+		<header>
+			<nav class="navbar-text" style="background-color: #1d5d9b">
+				<div class="container-fluid">
+					<a class="navbar-brand logoPrincipal" href="./index.html">
+						<img
+							src="./img/logo-principal.png"
+							alt="Logo"
+							width="48"
+							height="50"
+							class="d-inline-block align-text-top" />
+						<h1><strong>Cine+</strong></h1>
+					</a>
+				</div>
+			</nav>
+		</header>
+
+		<main class="container-fluid text-fluid">
+			<section class="row">
+				<h2 class="mx-auto m-3">Bienvenido/a a Cine+</h2>
+				<div class="mb-3" id="cargaRespuestaSaludo"></div>
+				<div class="input-group text-fluid mb-3 inputSaludo" id="respuesta">
+					<input
+						type="text"
+						class="form-control"
+						placeholder="Ingrese su nombre"
+						aria-label="ingrese su nombre"
+						aria-describedby="button-addon2"
+						id="nombreInput" />
+					<button type="button" class="btn btn-outline-primary" id="registro">
+						Enviar
+					</button>
+				</div>
+			</section>
+			<section>
+				<div class="form" style="width: 15rem">
+					<form class="d-inline-block" id="miFormulario">
+						<select
+							class="form-select mb-3"
+							aria-label="Floating label select example"
+							id="seleccionar">
+							<option selected>Selecciona una pelicula:</option>
+							<option value="Jurassic Park">Jurassic Park</option>
+							<option value="Rocky">Rocky</option>
+							<option value="Titanic">Titanic</option>
+							<option value="Top Gun">Top Gun</option>
+							<option value="Mision Imposible">Mision Imposible</option>
+							<option value="Karate Kid">Karate Kid</option>
+						</select>
+						<input
+							type="number"
+							class="form-control border border-warning border-5 mb-3 text-center"
+							placeholder="Asientos: (c/u $500)"
+							min="1"
+							style="width: 85%" 
+							id="cantAsientos"/>
+						<button type="submit" class="btn btn-primary mb-3">Confirmar</button>
+						<button type="button" class="btn btn-outline-success mb-3" id="azar">
+							¡Proba Suerte!
+						</button>
+					</form>
+				</div>
+
+				<div>
+					<form id="formularioCandy">
+						<fieldset>
+							<legend>Selecciona los alimentos:</legend>
+							<!-- Checkboxes alimentos -->
+							<div>
+								<input class="form-check-input" type="checkbox" id="pochoclos" value="pochoclos">
+								<label for="pochoclos">Pochoclos ($200)</label>
+							</div>
+							<div>
+								<input class="form-check-input" type="checkbox" id="chocolate" value="chocolate">
+								<label for="chocolate">Chocolate ($100)</label>
+							</div>
+							<div>
+								<input class="form-check-input" type="checkbox" id="gaseosa" value="gaseosa">
+								<label for="gaseosa">Gaseosa ($150)</label>
+							</div>
+							<div>
+								<input class="form-check-input" type="checkbox" id="agua" value="agua">
+								<label for="agua">Agua ($50)</label>
+							</div>
+						</fieldset>
+						<button type="button" class="btn btn-outline-warning m-3" id="confirmarCandy">Seleccionar</button>
+					</form>
+				</div>
+				
+				<div>
+					<p id="respuestaPelicula"></p>
+					<p id="respuestaAsientos"></p>
+					<p id="respuestaCandy"></p>
+				</div>
+			</section>
+
+			<article class="container">
+				<section class="row">
+					<div class="col-4 m-3 relieve">
+						<img
+							src="./img/cartelera-jp.webp"
+							alt="cartelera pelicula"
+							class="img-fluid mx-auto imgCine" />
+						<img src="./img/jp-relieve.webp" alt="logo pelicula con relieve" class="img2">
+					</div>
+					<div class="col-4 m-3 relieve">
+						<img
+							src="./img/cartelera-rocky.webp"
+							alt="cartelera pelicula"
+							class="img-fluid mx-auto imgCine" />
+						<img src="./img/Rocky-relieve.webp" alt="logo pelicula con relieve" class="img2">
+					</div>
+					<div class="col-4 m-3 relieve">
+						<img
+							src="./img/cartelera-titanic.webp"
+							alt="cartelera pelicula"
+							class="img-fluid mx-auto imgCine" />
+						<img src="./img/titanic-relieve.webp" alt="logo pelicula con relieve" class="img2">	
+					</div>
+					<div class="col-4 m-3 relieve">	
+						<img
+							src="./img/cartelera-topgun.webp"
+							alt="cartelera pelicula"
+							class="img-fluid mx-auto imgCine" />
+						<img src="./img/tg-relieve.png" alt="logo pelicula con relieve" class="img2">
+					</div>
+					<div class="col-4 m-3 relieve">
+						<img
+							src="./img/cartelera-mi3.webp"
+							alt="cartelera pelicula"
+							class="img-fluid mx-auto imgCine" />
+						<img src="./img/mi-relieve.png" alt="logo pelicula con relieve" class="img2">
+					</div>
+					<div class="col-4 m-3 relieve">
+						<img
+							src="./img/cartelera-karatekid.webp"
+							alt="cartelera pelicula"
+							class="img-fluid mx-auto imgCine" />
+						<img src="./img/kkid-relieve.png" alt="logo pelicula con relieve" class="img2">	
+					</div>
+				</section>
+			</article>
+		</main>
+
+		<footer></footer>
+		<script src="main.js"></script>
+	</body>
+</html>
