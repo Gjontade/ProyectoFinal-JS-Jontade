@@ -67,7 +67,7 @@ function saludar() {
 	let respuestaSaludar = document.getElementById("respuesta");
 
 	if (saludo === "") {
-		//alert("Debe ingresar un nombre para continuar con la reserva.");
+		// SweetAlert2
 		Swal.fire({
 			title: '¡Has fallado!',
 			text: 'Ingresa tu nombre o muere.',
@@ -125,19 +125,58 @@ miFormulario.addEventListener("submit", function (event) {
     localStorage.setItem("cantidadAsientos", cantidadAsientos);
 });
 
+//                                       ----------[FUNCION ASINCRONICA]----------
+//-----Descipcion pelicula-----
+async function cargarPeliculas() {
+	const response = await fetch("./json/peliculas.json");
+	const data = await response.json();
+	return data;
+};
+
+const btnInformacionPeli = document.getElementById("informacionPeli");
+
+btnInformacionPeli.addEventListener("click", async () => {
+	const seleccionPelicula = document.getElementById("seleccionar").value;
+	const peliculasData = await cargarPeliculas();
+	const peliculaInfo = peliculasData.find(pelicula => pelicula.nombre === seleccionPelicula);
+
+	if (peliculaInfo) {
+		Swal.fire({
+			title: peliculaInfo.nombre,
+			html: `Director: ${peliculaInfo.director}.<br> Duración: ${peliculaInfo.duracion}.<br> Género: ${peliculaInfo.genero}.`,
+			imageUrl: peliculaInfo.foto,
+			imageWidth: 280,
+			imageHeight: 400,
+			imageAlt: peliculaInfo.nombre,
+			background: '#EEEEEE',
+			color: '#27374D',
+			confirmButtonColor: '#27374D',
+			confirmButtonText: 'Cerrar',
+		});
+	} else {
+		Swal.fire({
+			title: "Error",
+			text: "No se encontró información de la película seleccionada.",
+			icon: "error",
+			confirmButtonColor: '#198754',
+			confirmButtonText: 'Cerrar',
+		});
+	}
+});
+
 //-----Funcion Azar-----
 function probarSuerte() {
 	const indice = Math.floor(Math.random() * cartelera.length);
 	const peliculaAzar = cartelera[indice].nombre;
 	let tot;
 
-	//asientos = Number(prompt("Cantidad de asientos: (valor: $500 c/u)"));
+	// SweetAlert2
 	swal.fire({
 		title: 'Cantidad de asientos:<br>(valor: $500 c/u)',
 		input: 'number',
 		background: '#EEEEEE',
-		color: '#f4d160',
-		confirmButtonColor: '#198754',
+		color: '#27374D',
+		confirmButtonColor: '#27374D',
 		inputAttributes: {
 			min: 0,
 			step: 1,
@@ -202,6 +241,10 @@ confirmarAlimentos.addEventListener("click", () => {
 		final += parcial[i];
 	}
 
+	// Almacenar en Local Storage
+	localStorage.setItem("carrito", JSON.stringify(carrito));
+	localStorage.setItem("totalCandy", final);
+
 	frase2 = "<strong>----- Candy -----</strong> <br>";
 	for (let i = 0; i < carrito.length; i++) {
 		frase2 += `${carrito[i]} ($${parcial[i]})`;
@@ -218,7 +261,7 @@ confirmarAlimentos.addEventListener("click", () => {
 });
 
 
-// -----JSON y Carga de datos almacenados en Local Storage
+// -----JSON y Carga de datos almacenados en Local Storage-----
 window.addEventListener("load", function () {
 	//carga saludo
     const cargaSaludo = localStorage.getItem("nombreUsuario");
@@ -226,7 +269,7 @@ window.addEventListener("load", function () {
 
     if (cargaSaludo) {
         document.getElementById("nombreInput").value = cargaSaludo;
-        //saludar();
+
 		cargaRespuestaSaludo.innerHTML = `¡Hola <strong>${cargaSaludo}</strong>! ¿So' vo' todavia?. (Si no sos, ingresa un nuevo nombre) <br> Guardamos tu seleccion pero si queres cambiarla... ¡estas a tiempo loquito! <br> No te olvides de seleccionar el candy. 😉`
 
 		// este evento borra los datos si se introduce un nuevo nombre
@@ -251,3 +294,69 @@ window.addEventListener("load", function () {
 		respAzar.innerHTML = `La Suerte dice...: <strong>¡${cargaPeliculaAzar}!</strong>.<br>Cantidad de sientos: ${localStorage.getItem("asientos")}. Valor total: <strong>$${localStorage.getItem("total")}</strong>.`;
 	}
 });
+
+// -----Confirmar la reserva-----
+const btnConfirmarReserva = document.getElementById("confirmarReserva");
+
+btnConfirmarReserva.addEventListener ("click", () => {
+	const cargaPeliculaSeleccionada = localStorage.getItem("peliculaSeleccionada");
+	const cargaCantidadAsientos = localStorage.getItem("cantidadAsientos");
+	const cargaPeliculaAzar = localStorage.getItem("peliculaAzar");
+	const cargaCarrito = JSON.parse(localStorage.getItem("carrito"));
+	const cargaTotalCandy = localStorage.getItem("totalCandy");
+
+	let mensaje = "";
+
+	if (cargaPeliculaSeleccionada && cargaCantidadAsientos) {
+		mensaje += `<strong>Pelicula seleccionada:</strong> ${cargaPeliculaSeleccionada}<br>`;
+		mensaje += `<strong>Cantidad de sientos:</strong> ${cargaCantidadAsientos}<br>`;
+		mensaje += `<strong>Valor total:</strong> $${valor(precioEntrada, cargaCantidadAsientos)}<br>`;
+	}
+
+	if (cargaPeliculaAzar) {
+		mensaje += `<strong>La Suerte dice:</strong> ¡${cargaPeliculaAzar}!<br>`;
+		mensaje += `<strong>Cantidad de sientos:</strong> ${localStorage.getItem("asientos")}<br>`;
+		mensaje += `<strong>Valor total:</strong> $${localStorage.getItem("total")}<br>`;
+	}	
+
+	if (cargaCarrito && cargaTotalCandy) {
+		mensaje += `<strong>Candy seleccionado:</strong> ${cargaCarrito.join(", ")}<br>`;
+		mensaje += `<strong>Valor total del Candy:</strong> $${cargaTotalCandy}`;
+	}
+
+	// SweetAlert2
+	Swal.fire({
+		title: 'Hasta la vista... beibi.',
+		imageUrl: './img/terminator.webp',
+		imageWidth: 400,
+		imageHeight: 200,
+		imageAlt: 'terminator apuntando con un arma',
+		background: '#EEEEEE',
+		color: '#27374D',
+		html: mensaje,
+		showCancelButton: true,
+		confirmButtonColor: '#198754',
+		confirmButtonText: 'Confirmar',
+		cancelButtonText: 'Cancelar',
+	})	.then((result) => {
+			if (result.isConfirmed) {
+			
+				if (cargaPeliculaSeleccionada && cargaCantidadAsientos) {
+					localStorage.removeItem("peliculaSeleccionada");
+					localStorage.removeItem("cantidadAsientos");
+				}
+				if (cargaPeliculaAzar) {
+					localStorage.removeItem("peliculaAzar");
+					localStorage.removeItem("asientos");
+					localStorage.removeItem("total");
+				}
+				if (cargaCarrito && cargaTotalCandy) {
+					localStorage.removeItem("carrito");
+					localStorage.removeItem("totalCandy");
+				}
+			}			
+		});
+});
+
+
+

@@ -1,0 +1,44 @@
+[
+	{
+		"foto": "./img/cartelera-jp.webp",
+		"nombre": "Jurassic Park",
+		"director": "Steven Spielberg",
+		"duracion": "2h 7min",
+		"genero": "Accion/Aventura/SciFy"
+	},
+	{
+		"foto": "./img/cartelera-rocky.webp",
+		"nombre": "Rocky",
+		"director": "John G. Avildsen",
+		"duracion": "2h",
+		"genero": "Drama/Deporte"
+	},
+	{
+		"foto": "./img/cartelera-titanic.webp",
+		"nombre": "Titanic",
+		"director": "James Cameron",
+		"duracion": "3h 14min",
+		"genero": "Drama/Romance"
+	},
+	{
+		"foto": "./img/cartelera-topgun.webp",
+		"nombre": "Top Gun",
+		"director": "Tony Scott",
+		"duracion": "1h 49min",
+		"genero": "Accion/Drama"
+	},
+	{
+		"foto": "./img/cartelera-karatekid.webp",
+		"nombre": "Karate Kid",
+		"director": "John G. Avildsen",
+		"duracion": "2h 6min",
+		"genero": "Accion/Drama/Familiar"
+	},
+	{
+		"foto": "./img/cartelera-mi3.webp",
+		"nombre": "Mision Imposible",
+		"director": "J.J. Abrams",
+		"duracion": "2h 6min",
+		"genero": "Accion/Aventura/Suspenso"
+	}
+]
